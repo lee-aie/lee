@@ -705,7 +705,8 @@ body.panel-docked .dock-wrap { max-width: calc(var(--lesson-max) + 2 * var(--spa
     <ol class="ca-steps" id="steps" aria-label="Progress" hidden>
       <li><span class="n">1</span>Calibration</li>
       <li><span class="n">2</span>Lesson</li>
-      <li><span class="n">3</span>Your results</li>
+      <li><span class="n">3</span>Questions</li>
+      <li><span class="n">4</span>Your results</li>
     </ol>
     <span class="page-of" id="pageOf" hidden>Page <b class="ca-num" id="pageN">1</b> of 8</span>
   </div>
@@ -2664,7 +2665,7 @@ function maybeMarginNote(reason) {
 }
 
 /* ---- header: site nav, step indicator or lesson progress ---- */
-function setHeader(mode, step = 0) {
+function setHeader(mode, step = 0, skipped = []) {   // steps: 1 calibration, 2 lesson, 3 questions, 4 results
   const site = mode === 'site', steps = mode === 'steps', lesson = mode === 'lesson', quiz = mode === 'quiz';
   if (!site) document.title = TITLE_MAIN;
   $('navMain').hidden = !site;
@@ -2675,10 +2676,10 @@ function setHeader(mode, step = 0) {
   $('siteFoot').hidden = !site;
   if (steps) {
     [...$('steps').children].forEach((li, k) => {
-      const n = k + 1;
-      li.classList.toggle('done', n < step);
+      const n = k + 1, done = n < step && !skipped.includes(n);   // a skipped step gets no tick
+      li.classList.toggle('done', done);
       if (n === step) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
-      li.querySelector('.n').innerHTML = n < step ? ICON.check : String(n);
+      li.querySelector('.n').innerHTML = done ? ICON.check : String(n);
     });
   }
 }
@@ -3075,7 +3076,7 @@ function renderQuizIntro() {
   setPhase('quiz-intro');
   stopInstrument();
   hideSessionChrome();
-  setHeader('steps', 2.5);   // calibration and lesson done; results still to come
+  setHeader('steps', 3);   // the Questions step
   const items = MCQ_FORMS[QUIZ_FORM];
   show(`<div class="wrap screen-intro"><section class="intro-card">
       <div class="intro-top">
@@ -3170,7 +3171,7 @@ function replayWouldTrigger() {
 function renderSummary() {
   hideSessionChrome();
   document.body.classList.remove('in-session');
-  setHeader('steps', 3);
+  setHeader('steps', 4, DEMO.quiz.skipped ? [3] : []);
   const t0 = MOD.startT, t1 = MOD.endT || now();
   const durS = (t1 - t0) / 1000;
   const trig = AD.triggerEvent, apply = AD.applyEvent, last = MODULE.screens.length;
@@ -3332,7 +3333,7 @@ function renderHome() {
         <button class="ca-btn ca-btn-primary" id="startBtn" type="button">Start <span class="soft">· about 6 min</span></button>
         <span class="muted">Needs a mouse or trackpad</span>
       </div>
-      <p class="muted meta">30-second calibration, then 8 short pages, then your results.</p>
+      <p class="muted meta">30-second calibration, 8 short pages, a few questions, then your results.</p>
       ${fine ? '' : '<p class="notice">This demo reads mouse movement, so it needs a mouse or trackpad. On a touchscreen you can look around, but the layout won’t adapt.</p>'}
     </section>
     <section class="instrument" aria-labelledby="instT">
