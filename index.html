@@ -595,6 +595,55 @@ body.panel-docked .dock-wrap { max-width: calc(var(--lesson-max) + 2 * var(--spa
 .credits { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 10px var(--space-5); font-size: 16px; line-height: 1.5; }
 .credits dt { color: var(--muted); }
 
+/* ---- quiz: the study's Form A, one question per screen, nothing that could hint at the answer ---- */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.quiz-chip { align-self: flex-start; }
+.screen-quiz { max-width: 860px; padding-top: var(--space-12); padding-bottom: var(--space-6); }
+.quiz-card { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-2xl); padding: var(--space-8) var(--space-10) var(--space-10); display: flex; flex-direction: column; gap: var(--space-4); }
+.quiz-setup { font-size: 20.5px; line-height: 32.8px; font-weight: 400; max-width: 60ch; }
+.quiz-main { font-size: 20.5px; line-height: 32.8px; font-weight: 600; letter-spacing: 0; max-width: 60ch; }
+.quiz-options { border: 0; margin: var(--space-3) 0 0; padding: 0; min-width: 0; display: flex; flex-direction: column; gap: var(--space-3); }
+.quiz-opt { display: flex; align-items: flex-start; gap: 14px; padding: var(--space-4) var(--space-5); border: 1px solid var(--control); border-radius: var(--radius-lg); background: transparent; cursor: pointer; min-height: var(--target-min); box-sizing: border-box; }
+.quiz-opt:has(input:checked) { border: 2px solid var(--ink); background: var(--surface); padding: 15px 19px; }
+.quiz-opt:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 3px; }
+.quiz-opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.quiz-opt .ca-key { flex: none; margin-top: 6px; }
+.quiz-opt:has(input:checked) .ca-key { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.opt-text { font-size: 20.5px; line-height: 32.8px; max-width: 60ch; }
+
+/* ---- labelling task: the study's own markup and classes, in Clear Air ---- */
+.match-wrap { max-width: var(--content-max); margin: 0 auto; padding: var(--space-10) var(--space-6) var(--space-12); }
+.match-wrap .card { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-2xl); padding: var(--space-8) var(--space-10); display: flex; flex-direction: column; gap: var(--space-4); }
+.match-wrap h1 { font-size: 36px; line-height: 40px; font-weight: 800; letter-spacing: -0.015em; }
+.match-wrap .card > p { font-size: 18px; line-height: 1.55; color: var(--muted); max-width: 70ch; }
+.match-wrap .bank { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; }
+.match-wrap .chip { font: inherit; font-size: 16px; min-height: var(--target-min); padding: 0 var(--space-4); border-radius: var(--radius-pill); border: 1px solid var(--control); background: var(--surface); color: var(--ink); cursor: pointer; }
+.match-wrap .chip.selected { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.match-wrap .chip.placed { display: none; }
+.match-wrap .match-figure { border: 1px solid var(--hairline); border-radius: var(--radius-lg); overflow-x: auto; }
+.match-wrap .match-figure svg { display: block; width: 100%; height: auto; min-width: 800px; }   /* never smaller than the study drew it, so every box stays easy to hit */
+.match-wrap .slot { cursor: pointer; }
+.match-wrap .slot .hit { fill: transparent; pointer-events: all; }
+.match-wrap .slot rect:not(.hit) { fill: var(--surface); stroke: var(--control); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.match-wrap .slot:hover rect:not(.hit) { stroke: var(--ink); fill: var(--aside); }
+.match-wrap .slot.filled rect:not(.hit) { stroke-dasharray: none; stroke: var(--ink); fill: var(--aside); }
+.match-wrap .slot text { font: 600 15px var(--font-sans); fill: var(--ink); pointer-events: none; }
+.match-wrap .actions { display: flex; }
+.match-wrap .btn { display: inline-flex; align-items: center; height: var(--button-height); padding: 0 var(--space-6); border-radius: var(--radius-md); border: 1px solid transparent; background: var(--ink); color: var(--on-ink); font: inherit; font-size: 17px; font-weight: 700; cursor: pointer; }
+.match-wrap .btn:disabled { background: transparent; color: var(--disabled); border: 1px dashed var(--disabled-line); cursor: not-allowed; font-weight: 400; }
+
+/* ---- results: quiz scores and review ---- */
+.quiz-context { font-size: 15px; max-width: 760px; }
+.review { max-width: 860px; background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-2xl); padding: 0 var(--space-6); }
+.review summary { min-height: var(--target-min); display: flex; align-items: center; font-size: 17px; font-weight: 700; cursor: pointer; padding: var(--space-3) 0; }
+.review h3 { font-size: 16px; font-weight: 700; margin: var(--space-4) 0 var(--space-2); }
+.review-list { margin: 0 0 var(--space-5); padding-left: 22px; display: flex; flex-direction: column; gap: var(--space-4); font-size: 16px; line-height: 1.5; }
+.review-list li > p + p { margin-top: 2px; }
+.rv-q { font-weight: 600; }
+.rv-mark { display: inline-flex; align-items: center; gap: 4px; font-weight: 700; margin-right: var(--space-2); }
+.rv-mark svg { width: 16px; height: 16px; }
+.review-list .ca-key { margin-right: 2px; }
+
 /* ---- exit confirmation ---- */
 .confirm { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; padding: var(--space-4); background: color-mix(in srgb, var(--canvas) 70%, transparent); }
 .confirm-card { width: min(420px, 100%); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius-2xl); box-shadow: var(--shadow-float); padding: var(--space-6) var(--space-7); display: flex; flex-direction: column; gap: var(--space-3); box-sizing: border-box; }
@@ -627,6 +676,10 @@ body.panel-docked .dock-wrap { max-width: calc(var(--lesson-max) + 2 * var(--spa
   .ca-steps li { gap: 6px; }
   .ca-dock { padding: var(--space-3); }
   #chartBox svg { min-width: 640px; }
+  .quiz-card, .match-wrap .card { padding: var(--space-6) var(--space-5); }
+  .match-wrap { padding-left: var(--space-4); padding-right: var(--space-4); }
+  .match-wrap h1 { font-size: 30px; line-height: 34px; }
+  .review { padding: 0 var(--space-4); }
   .ca-dock .ca-btn-next { width: 100%; justify-content: space-between; }
   /* phones: a full-width sheet, still beneath the dock so Next stays reachable; its content scrolls clear of the dock */
   .sysview.is-overlay { left: 0; right: 0; top: calc(var(--header-height) + 8px); bottom: 0; width: auto; border-radius: var(--radius-2xl) var(--radius-2xl) 0 0; padding-bottom: 240px; }
@@ -679,7 +732,7 @@ body.panel-docked .dock-wrap { max-width: calc(var(--lesson-max) + 2 * var(--spa
         System view
       </button>
     </div>
-    <button class="ca-btn ca-btn-primary ca-btn-next" id="dockNext" type="button"><span id="nextLbl">Next</span><span class="ca-key" aria-hidden="true">→</span></button>
+    <button class="ca-btn ca-btn-primary ca-btn-next" id="dockNext" type="button"><span id="nextLbl">Next</span><span class="ca-key" id="nextKey" aria-hidden="true">→</span></button>
   </div>
 </div>
 
@@ -2448,17 +2501,22 @@ const DEMO = {
   lessonA0: 0,
   hero: null,
   noteShown: false,
+  quiz: { started: false, skipped: false, answers: [] },   // in memory only, gone on reload
   calibTimer: null, calibRaf: null,
 };
 const DEMO_CALIBRATION_MS = 30000;
 const WIDE = () => window.innerWidth >= 1180;
 CONFIG.baselineDurationMs = DEMO_CALIBRATION_MS;
 
-// Flow: calibration -> lesson -> summary (finishSession -> renderEnd).
+// Flow: calibration -> lesson -> quiz (Form A, then the labelling task; can be skipped) ->
+// results (finishSession -> renderEnd). The quiz is the study's own items, never reworded.
 STEPS.length = 0;
-STEPS.push('baseline', 'module');
+STEPS.push('baseline', 'module', 'quiz', 'matching');
 STEP_RENDERERS.baseline = renderDemoCalibration;
 STEP_RENDERERS.module = renderDemoLessonIntro;
+STEP_RENDERERS.quiz = renderQuizIntro;
+STEP_RENDERERS.matching = renderDemoMatching;
+const QUIZ_FORM = 'A';
 
 const $ = id => document.getElementById(id);
 const PANEL = $('panel');
@@ -2475,6 +2533,7 @@ const ICON = {
   check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
   layout: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>',
   trace: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h3l3-7 4 14 3-7h5"/></svg>',
+  close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
   note: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>',
 };
 const STRIKE_PATH = 'M8 0 L2 10 H7 L4 20';
@@ -2503,7 +2562,10 @@ renderLessonView = function (reason) {
   moduleEvent('render', { reason, presentation: AD.adapted ? 'adapted' : 'default' });
   snapshotLayout(reason === 'screen' ? 'render' : reason);
   setHeader('lesson');
-  $('pageN').textContent = MOD.index + 1;
+  $('pageOf').innerHTML = `Page <b class="ca-num">${MOD.index + 1}</b> of ${MODULE.screens.length}`;
+  $('sysBtn').hidden = false;
+  $('dockNext').disabled = false;
+  $('nextKey').textContent = '→';
   updateRail();
   $('nextLbl').textContent = MOD.index >= MODULE.screens.length - 1 ? 'Finish the lesson' : 'Next';
   placePanel();
@@ -2603,13 +2665,13 @@ function maybeMarginNote(reason) {
 
 /* ---- header: site nav, step indicator or lesson progress ---- */
 function setHeader(mode, step = 0) {
-  const site = mode === 'site', steps = mode === 'steps', lesson = mode === 'lesson';
+  const site = mode === 'site', steps = mode === 'steps', lesson = mode === 'lesson', quiz = mode === 'quiz';
   if (!site) document.title = TITLE_MAIN;
   $('navMain').hidden = !site;
   $('steps').hidden = !steps;
-  $('pageOf').hidden = !lesson;
-  $('headRail').hidden = !lesson;
-  $('brandSub').textContent = lesson ? 'How lightning forms' : 'AIE demo';   // inside the lesson, the lesson title
+  $('pageOf').hidden = !(lesson || quiz);
+  $('headRail').hidden = !(lesson || quiz);
+  $('brandSub').textContent = lesson ? 'How lightning forms' : quiz ? 'Check what you learned' : 'AIE demo';   // inside the lesson, the lesson title
   $('siteFoot').hidden = !site;
   if (steps) {
     [...$('steps').children].forEach((li, k) => {
@@ -2620,8 +2682,16 @@ function setHeader(mode, step = 0) {
     });
   }
 }
+function updateQuizRail(i, n) {   // i = current question (0-based); i === n on the labelling task
+  $('rail').style.setProperty('--pages', n);
+  $('railList').innerHTML = Array.from({ length: n }, (_, k) => `<li${k < i ? ' class="done"' : ''}>${k === i ? '<i style="--fill: 50%"></i>' : ''}</li>`).join('');
+  $('railList').setAttribute('aria-label', i < n ? `Question ${i + 1} of ${n}` : `All ${n} questions answered`);
+  const old = $('rail').querySelector('.ca-strike');
+  if (old) old.remove();
+}
 function updateRail() {
   const n = MODULE.screens.length, i = MOD.index;
+  $('rail').style.setProperty('--pages', n);
   const ap = AD.applyEvent ? AD.applyEvent.screen_index - 1 : null;
   const items = [];
   for (let k = 0; k < n; k++) {
@@ -2682,6 +2752,7 @@ function resetSession() {
   hoverCur = null;
   DEMO.ticks = [];
   DEMO.noteShown = false;
+  DEMO.quiz = { started: false, skipped: false, answers: [] };
   DEMO.paused = false;
   hideSessionChrome();
 }
@@ -2988,7 +3059,103 @@ function drawPanelTrace() {
     (last ? `: now ${pct(last.c, true)}` : '') + (trig ? '. It decided to simplify the layout.' : ''));
 }
 
-/* ---- step 3: results ---- */
+/* ---- step 3: the quiz (the study's Form A and labelling task, restyled, never reworded) ---- */
+// Split a stem the way the lesson splits text: a two-sentence stem becomes its setup and its
+// question. Same words, same order: the pieces joined with a space are the study's stem exactly.
+function stemPieces(stem) { return stem.split(/(?<=[.!?])\s+(?=[A-Z])/); }
+function stopInstrument() {
+  // The lesson is over: the instrument stops, so no reading and no adaptation exist after it.
+  if (engine) engine.stop();
+  clearInterval(entropyTimer);
+  DEMO.paused = false;
+  if (DEMO.panelOpen) setPanelOpen(false);
+}
+const QUIZ_CHIP = '<span class="ca-chip quiz-chip" role="status">Measuring stopped</span>';
+function renderQuizIntro() {
+  setPhase('quiz-intro');
+  stopInstrument();
+  hideSessionChrome();
+  setHeader('steps', 2.5);   // calibration and lesson done; results still to come
+  const items = MCQ_FORMS[QUIZ_FORM];
+  show(`<div class="wrap screen-intro"><section class="intro-card">
+      <div class="intro-top">
+        ${QUIZ_CHIP}
+        <h1 class="t-title">Check what you learned</h1>
+        <p class="t-lead muted">${items.length} questions and 1 labelling task, about 6 minutes.</p>
+      </div>
+      <ul class="intro-lines">
+        <li>${ICON.check}<span>These are the study’s own questions. Everyone gets the same ones, in the same order, whichever layout they read.</span></li>
+        <li>${ICON.trace}<span>Lee stopped measuring at the end of the lesson, so nothing on these screens changes.</span></li>
+        <li>${ICON.layout}<span>Your answers stay on this page and are gone when you close it.</span></li>
+      </ul>
+      <div class="intro-actions">
+        <button class="ca-btn ca-btn-secondary" id="quizSkip" type="button">Skip to results</button>
+        <button class="ca-btn ca-btn-primary" id="quizStart" type="button">Start <span class="ca-key" aria-hidden="true">Enter</span></button>
+      </div>
+    </section></div>`);
+  $('quizSkip').onclick = () => { DEMO.quiz.skipped = true; finishSession(true); };
+  $('quizStart').onclick = () => { DEMO.quiz.started = true; renderQuestion(0); };
+  $('quizStart').focus();
+}
+function renderQuestion(i) {
+  const items = MCQ_FORMS[QUIZ_FORM], it = items[i], n = items.length;
+  setPhase('quiz', it.id);
+  setHeader('quiz');
+  $('pageOf').innerHTML = `Question <b class="ca-num">${i + 1}</b> of ${n}`;
+  updateQuizRail(i, n);
+  const pieces = stemPieces(it.stem);
+  const setup = pieces.length > 1 ? pieces.slice(0, -1) : [];
+  show(`<div class="wrap screen-quiz"><section class="quiz-card" aria-labelledby="qMain">
+      ${setup.map(x => `<p class="quiz-setup" data-stem-piece>${esc(x)}</p>`).join('')}
+      <h1 class="quiz-main" id="qMain" data-stem-piece>${esc(pieces[pieces.length - 1])}</h1>
+      <fieldset class="quiz-options" aria-labelledby="qMain">
+        <legend class="sr-only">Answers</legend>
+        ${'ABCD'.split('').map(k => `<label class="quiz-opt" data-k="${k}"><input type="radio" name="quizOpt" value="${k}"><span class="ca-key" aria-hidden="true">${k}</span><span class="opt-text">${esc(it.options[k])}</span></label>`).join('')}
+      </fieldset>
+    </section></div>`);
+  // the dock: the status chip and Next; no layout controls and no system view in the quiz
+  $('dock').hidden = false;
+  $('optText').hidden = true; $('optoutBtn').hidden = true; $('sysBtn').hidden = true;
+  const chip = $('chip'); chip.className = 'ca-chip'; chip.textContent = 'Measuring stopped';
+  $('nextLbl').textContent = 'Next';
+  $('nextKey').textContent = 'Enter';   // in the quiz, Enter goes to Next (-> is the lesson's key)
+  $('dockNext').disabled = true;
+  const shownT = now();
+  app.querySelectorAll('input[name=quizOpt]').forEach(r => r.addEventListener('change', () => { $('dockNext').disabled = false; }));
+  DEMO.quizNext = () => {
+    const sel = app.querySelector('input[name=quizOpt]:checked');
+    if (!sel) return;
+    DEMO.quiz.answers[i] = { id: it.id, chosen: sel.value, key: it.key, correct: sel.value === it.key, rt_ms: r2(now() - shownT) };
+    if (i < n - 1) renderQuestion(i + 1);
+    else { $('dock').hidden = true; nextStep(); }   // -> the labelling task
+  };
+}
+$('dockNext').addEventListener('click', () => { if (S.phase === 'quiz' && DEMO.quizNext) DEMO.quizNext(); });
+function selectOption(k) {
+  const r = app.querySelector(`input[name=quizOpt][value="${k}"]`);
+  if (!r) return;
+  r.checked = true;
+  r.dispatchEvent(new Event('change', { bubbles: true }));
+  r.focus();
+}
+// The labelling task is the study's own renderMatching(): same diagram, terms, alphabetical bank,
+// and click-a-label-then-a-box navigation. The demo adds the header, the status chip, and
+// invisible hit areas so every box is easy to hit; nothing it shows or scores changes.
+function renderDemoMatching() {
+  renderMatching();
+  setHeader('quiz');
+  $('pageOf').textContent = 'Labelling task';
+  updateQuizRail(MCQ_FORMS[QUIZ_FORM].length, MCQ_FORMS[QUIZ_FORM].length);
+  const card = app.querySelector('.match-wrap .card');
+  card.insertAdjacentHTML('afterbegin', QUIZ_CHIP);
+  const D = MATCHING_DIAGRAM, pad = 8;
+  app.querySelectorAll('#matchSvg .slot').forEach((g, i) => {
+    const sl = D.slots[i];
+    g.insertAdjacentHTML('afterbegin', `<rect class="hit" x="${sl.x - pad}" y="${sl.y - pad}" width="${D.slotW + 2 * pad}" height="${D.slotH + 2 * pad}" rx="8"/>`);
+  });
+}
+
+/* ---- step 4: results ---- */
 function replayWouldTrigger() {
   // The study's own pure controller, replayed over this session's ticks (as analysis/replay_trigger.mjs does).
   const st = controllerInit(DEMO.lessonA0);
@@ -3049,6 +3216,25 @@ function renderSummary() {
   for (const v of lessonVals) if (peak === null || v > peak) peak = v;
   const adaptedPages = S.screens.filter(s => s.presentation_at_start === 'adapted').length;
   const other = DEMO.mode === 'adaptive' ? 'static' : 'adaptive';
+  const items = MCQ_FORMS[QUIZ_FORM], answers = DEMO.quiz.answers;
+  const took = !DEMO.quiz.skipped && answers.length === items.length && S.matching.length === MATCHING_DIAGRAM.slots.length;
+  const qScore = answers.filter(a => a && a.correct).length, lScore = S.matching.filter(r => r.correct).length;
+  const optLine = (it, k) => `<span class="ca-key">${k}</span> ${esc(it.options[k])}`;
+  const mark = ok => ok ? `<span class="rv-mark">${ICON.check}Correct</span>` : `<span class="rv-mark rv-no">${ICON.close}Not correct</span>`;
+  const quizFacts = !took ? '' : `
+        <div><dt>Questions</dt><dd><span class="ca-num">${qScore}</span> of ${items.length}</dd></div>
+        <div><dt>Labels</dt><dd><span class="ca-num">${lScore}</span> of ${MATCHING_DIAGRAM.slots.length}</dd></div>`;
+  const review = !took ? '' : `
+      <p class="quiz-context muted">Study participants averaged about 6 of 12 and 6 of 8, in both layouts.</p>
+      <details class="review">
+        <summary>Review answers</summary>
+        <ol class="review-list">${items.map((it, i) => { const a = answers[i]; return `<li>
+          <p class="rv-q">${esc(it.stem)}</p>
+          <p>${mark(a.correct)} Your answer: ${optLine(it, a.chosen)}</p>
+          ${a.correct ? '' : `<p>Correct answer: ${optLine(it, it.key)}</p>`}</li>`; }).join('')}</ol>
+        <h3>Labels</h3>
+        <ol class="review-list labels">${S.matching.map(r => `<li><p>${mark(r.correct)} Box for “${esc(r.correct_term)}”: you placed “${esc(r.placed_term)}”</p></li>`).join('')}</ol>
+      </details>`;
   show(`<div class="wrap screen-result">
       <div class="result"><h1 class="t-headline">${esc(head)}</h1><p class="t-lead muted">${esc(detail)}</p></div>
       <section class="result-chart" aria-labelledby="chT">
@@ -3060,8 +3246,8 @@ function renderSummary() {
         <div><dt>Reading time</dt><dd class="ca-num">${mmss(durS)}</dd></div>
         <div><dt>Pages in the simplified layout</dt><dd><span class="ca-num">${adaptedPages}</span> of ${last}</dd></div>
         <div><dt>Highest change</dt><dd class="ca-num">${pct(peak, true)}</dd></div>
-        <div><dt>Calibration</dt><dd><span class="ca-num">${num(S.baseline ? S.baseline.angles_collected : 0)}</span> turning angles</dd></div>
-      </dl>
+        <div><dt>Calibration</dt><dd><span class="ca-num">${num(S.baseline ? S.baseline.angles_collected : 0)}</span> turning angles</dd></div>${quizFacts}
+      </dl>${review}
       <p class="honest">This is an estimate from how your mouse moved, not a reading of your mind. A sudden search for something on the page can look the same as working hard to understand it.</p>
       <div class="result-actions">
         <button class="ca-btn ca-btn-primary" id="tryOther" type="button">Try ${other} mode</button>
@@ -3287,7 +3473,7 @@ function renderHow() {
           <div class="table-wrap"><table class="compare feedback">
             <thead><tr><th scope="col">What participants said</th><th scope="col">What the demo does</th></tr></thead>
             <tbody>
-              <tr><td>Long paragraphs felt like walls of text, and the quiz questions felt long too. Some said they would read it as points or diagrams.</td><td>The same words, as a one-line main idea followed by points, one sentence each. Every page keeps its labelled diagram, and there are no quizzes in the demo.</td></tr>
+              <tr><td>Long paragraphs felt like walls of text, and the quiz questions felt long too. Some said they would read it as points or diagrams.</td><td>The same words, as a one-line main idea followed by points, one sentence each. Every page keeps its labelled diagram. The quiz keeps every word of the study's questions, which never adapted in the study. Each question gets its own screen, with the setup and the question on separate lines, and nothing that could hint at the answer.</td></tr>
               <tr><td>Many read the title, the “In short” summary and the pictures, and skipped the paragraphs.</td><td>Each page opens with its main idea, and the key terms are in bold, so a quick read still lands.</td></tr>
               <tr><td>The pages looked dated and made it hard to focus.</td><td>A new design for both layouts: a typeface built for legibility, more space and calmer colours.</td></tr>
             </tbody>
@@ -3359,6 +3545,12 @@ document.addEventListener('keydown', e => {
   else if ((e.key === 'p' || e.key === 'P') && (S.phase === 'module' || $('heroPause'))) { e.preventDefault(); togglePause(); }
   else if (e.key === 'Enter' && S.phase === 'module-intro' && !(t && t.closest && t.closest('button, a, label, input'))) { e.preventDefault(); $('startLesson').click(); }
   else if (e.key === 'Escape' && DEMO.panelOpen && !WIDE() && S.phase === 'module') setPanelOpen(false);
+  else if (S.phase === 'quiz') {   // 1-4 or A-D choose an answer; Enter goes to Next
+    const k = { '1': 'A', '2': 'B', '3': 'C', '4': 'D', a: 'A', b: 'B', c: 'C', d: 'D' }[e.key.toLowerCase()];
+    if (k) { e.preventDefault(); selectOption(k); }
+    else if (e.key === 'Enter' && !(t && t.closest && t.closest('button, a'))) { e.preventDefault(); if (!$('dockNext').disabled) $('dockNext').click(); }
+  }
+  else if (e.key === 'Enter' && S.phase === 'quiz-intro' && !(t && t.closest && t.closest('button, a'))) { e.preventDefault(); $('quizStart').click(); }
 });
 
 /* ---- routing ---- */
